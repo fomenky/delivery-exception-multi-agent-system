@@ -1,0 +1,30 @@
+# Multi-agent last-mile delivery exception handling system
+# Versions pinned to the environment the notebook was executed in.
+
+# Agent orchestration + LangChain RAG stack
+langgraph==1.0.8
+langchain==1.2.10
+langchain-openai==1.1.10
+langchain-community==0.4.1
+langchain-chroma==1.1.0
+langchain-core==1.6.6
+langchain-text-splitters==1.1.2
+
+# Vector store, LLM client, tokenization
+chromadb==1.5.9
+openai==2.21.0
+tiktoken==0.14.0
+
+# Evaluation (DeepEval) and optional tracing (LangSmith)
+deepeval==4.0.2
+langsmith==0.7.3
+
+# Data, validation & utilities
+pandas==2.2.2
+pydantic==2.12.3
+python-dotenv==1.2.3
+
+# Notebook runtime
+jupyter
+
+# Note: sqlite3 is part of the Python standard library (no install needed).

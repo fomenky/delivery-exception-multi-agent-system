@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Last-Mile Delivery Exception Handling - Multi-Agent System Report</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #11253f 0%, #2c6fb5 100%); color: white; padding: 40px 20px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        header h1 { font-size: 2.4em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .metadata { background: white; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; font-size: 0.9em; color: #666; }
+        section { background: white; padding: 30px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h2 { color: #11253f; border-bottom: 3px solid #2c6fb5; padding-bottom: 10px; margin-bottom: 20px; font-size: 1.7em; }
+        h3 { color: #2c6fb5; margin-top: 20px; margin-bottom: 15px; font-size: 1.25em; }
+        .objective { background: #eaf2fb; padding: 20px; border-left: 5px solid #2c6fb5; border-radius: 4px; margin-bottom: 20px; }
+        .highlights { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0; }
+        .highlight-card { background: #f8f9fa; padding: 20px; border-radius: 6px; border-left: 5px solid #2c6fb5; }
+        .highlight-card h4 { color: #11253f; margin-bottom: 8px; font-size: 0.95em; }
+        .highlight-card .value { font-size: 1.6em; font-weight: bold; color: #1e8449; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.92em; }
+        th { background: #11253f; color: white; padding: 11px; text-align: left; font-weight: 600; }
+        td { padding: 10px 11px; border-bottom: 1px solid #e0e0e0; }
+        tr:hover { background: #f5f5f5; }
+        .pass { color: #1e8449; font-weight: bold; }
+        .na { color: #888; }
+        .insight-block { background: #eaf2fb; padding: 15px; border-left: 4px solid #2c6fb5; border-radius: 4px; margin: 15px 0; }
+        .insight-block strong { color: #11253f; }
+        .warning-block { background: #fef9e7; padding: 15px; border-left: 4px solid #f39c12; border-radius: 4px; margin: 15px 0; }
+        .warning-block strong { color: #d35400; }
+        .success-block { background: #eafaf1; padding: 15px; border-left: 4px solid #27ae60; border-radius: 4px; margin: 15px 0; }
+        .success-block strong { color: #1e8449; }
+        .key-metric { font-size: 1.1em; font-weight: bold; color: #1e8449; }
+        .pipeline { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 20px 0; justify-content: center; }
+        .stage { background: linear-gradient(135deg, #f5f7fa 0%, #c3d6ea 100%); padding: 12px 16px; border-radius: 8px; border-left: 5px solid #2c6fb5; font-weight: 600; color: #11253f; text-align: center; min-width: 130px; font-size: 0.9em; }
+        .arrow { font-size: 1.4em; color: #2c6fb5; }
+        .rec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin: 20px 0; }
+        .rec-card { background: #f8f9fa; padding: 20px; border-radius: 6px; border-top: 4px solid #2c6fb5; }
+        .rec-card h4 { color: #11253f; margin-bottom: 10px; }
+        .rec-card p { color: #555; }
+        ul { margin: 10px 0 10px 22px; }
+        li { margin-bottom: 8px; }
+        footer { text-align: center; padding: 20px; color: #666; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>&#128230; Last-Mile Delivery Exception Handling</h1>
+        <p>AI-Powered Multi-Agent System &mdash; Proof-of-Concept (LangGraph + RAG)</p>
+    </header>
+
+    <div class="metadata">
+        <strong>Report Generated:</strong> October 4, 2026 &nbsp;|&nbsp;
+        <strong>Data:</strong> SQLite (12 customers, 6 lockers) + Delivery Logs + Operations Playbook (RAG) &nbsp;|&nbsp;
+        <strong>Vector Store:</strong> Chroma (36 chunks) &nbsp;|&nbsp;
+        <strong>Models:</strong> gpt-4o-mini (agents) + gpt-4o (critics/judge) + text-embedding-3-small &nbsp;|&nbsp;
+        <strong>Benchmark:</strong> 10 curated shipment scenarios
+    </div>
+
+    <!-- OBJECTIVE -->
+    <section>
+        <h2>&#128203; Business Objective</h2>
+        <div class="objective">
+            <p><strong>Goal:</strong> Automate the full last-mile delivery exception pipeline &mdash; from detecting an actionable exception, to deciding a resolution, escalating to a human supervisor where policy requires, and drafting a personalized customer notification &mdash; replacing slow, inconsistent manual triage.</p>
+            <p style="margin-top: 10px;"><strong>Outcome:</strong> &#9989; A multi-agent LangGraph system that reasons over delivery logs, customer profiles, locker availability, and a retrieved operations playbook. On the 10-scenario benchmark it reached <span class="key-metric">100%</span> task completion, escalation accuracy, and tool-call accuracy, with <span class="key-metric">4.4/5</span> reasoning coherence.</p>
+        </div>
+        <div class="warning-block">
+            <strong>&#9888;&#65039; Why Correctness Matters:</strong> Each resolution drives real money (reattempt costs, spoilage write-offs, truck rolls) and customer retention. The system makes escalation deterministic, enforces data-privacy at the tool layer (PII only reaches the Communication Agent), and grounds every decision in cited playbook pages for auditability.
+        </div>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section>
+        <h2>&#128295; System Architecture</h2>
+        <p>A single orchestrator routes each shipment through specialist agents over a shared, typed state. Deterministic guardrails run before any LLM call; a hard-coded rule engine &mdash; not an LLM &mdash; owns automatic escalation.</p>
+        <div class="pipeline">
+            <div class="stage">Preprocessor<br><small>dedup, consolidate, guardrails, tool context</small></div>
+            <div class="arrow">&rarr;</div>
+            <div class="stage">Orchestrator<br><small>deterministic router</small></div>
+            <div class="arrow">&rarr;</div>
+            <div class="stage">Resolution Agent<br><small>classify + resolve</small></div>
+            <div class="arrow">&rarr;</div>
+            <div class="stage">Critic<br><small>validate resolution</small></div>
+            <div class="arrow">&rarr;</div>
+            <div class="stage">Communication Agent<br><small>customer message</small></div>
+            <div class="arrow">&rarr;</div>
+            <div class="stage">Critic<br><small>validate message</small></div>
+            <div class="arrow">&rarr;</div>
+            <div class="stage">Finalize<br><small>package + metrics</small></div>
+        </div>
+        <h3>Tools &amp; Data</h3>
+        <ul>
+            <li><strong>read_delivery_logs</strong> &mdash; raw status events from CSV (preprocessor only).</li>
+            <li><strong>lookup_customer_profile</strong> &mdash; SQLite customer lookup with a PII flag (name withheld unless the Communication Agent requests it).</li>
+            <li><strong>check_locker_availability</strong> &mdash; locker eligibility by zip, size, and capacity status.</li>
+            <li><strong>search_playbook</strong> &mdash; RAG retrieval over the operations playbook (Chroma), returning page-cited passages.</li>
+            <li><strong>check_escalation_rules</strong> &mdash; a fully deterministic rule engine for automatic and discretionary escalation triggers.</li>
+        </ul>
+        <div class="insight-block">
+            <strong>Reliability by design:</strong> noise and prompt-injection are filtered before any model call; a critic/revision loop (max 2) validates resolutions; and a reconciliation guardrail prevents the critic from over-revising a playbook-consistent, trigger-free decision &mdash; which eliminated false escalations.
+        </div>
+    </section>
+
+    <!-- METRICS -->
+    <section>
+        <h2>&#128202; Evaluation Results</h2>
+        <p>Five dimensions were measured across all 10 benchmark shipments. Escalation accuracy excludes the noise cases (ground truth N/A).</p>
+        <div class="highlights">
+            <div class="highlight-card"><h4>Task Completion Rate</h4><div class="value">100%</div><small>10 / 10 shipments fully correct</small></div>
+            <div class="highlight-card"><h4>Escalation Accuracy</h4><div class="value">100%</div><small>8 / 8 exception cases</small></div>
+            <div class="highlight-card"><h4>Tool Call Accuracy</h4><div class="value">100%</div><small>10 / 10 correct tool usage</small></div>
+            <div class="highlight-card"><h4>Reasoning Coherence</h4><div class="value">4.4 / 5</div><small>LLM-as-a-Judge (~88%)</small></div>
+            <div class="highlight-card"><h4>Avg Latency</h4><div class="value">~6.3s</div><small>per shipment, end-to-end</small></div>
+        </div>
+        <div class="success-block">
+            <strong>&#9989; Headline:</strong> Every shipment's exception classification, resolution action, escalation decision, and communication tone matched ground truth, including noise filtering and duplicate-scan deduplication.
+        </div>
+    </section>
+
+    <!-- PER SHIPMENT -->
+    <section>
+        <h2>&#128203; Per-Shipment Results</h2>
+        <p>P = predicted, GT = ground truth. All resolution, escalation, and tone predictions match ground truth.</p>
+        <table>
+            <thead><tr><th>Shipment</th><th>Scenario</th><th>Exception</th><th>Resolution</th><th>Escalate</th><th>Tone</th><th>Task</th><th>Coherence</th></tr></thead>
+            <tbody>
+                <tr><td>SHP-001</td><td>Successful delivery (noise)</td><td>NO</td><td>N/A</td><td class="na">N/A</td><td class="na">N/A</td><td class="pass">PASS</td><td>5/5</td></tr>
+                <tr><td>SHP-002</td><td>VIP multi-attempt + dup scan</td><td>YES</td><td>RESCHEDULE</td><td>YES</td><td>FORMAL</td><td class="pass">PASS</td><td>4/5</td></tr>
+                <tr><td>SHP-003</td><td>Address not found (standard)</td><td>YES</td><td>RESCHEDULE</td><td>NO</td><td>CASUAL</td><td class="pass">PASS</td><td>3/5</td></tr>
+                <tr><td>SHP-004</td><td>Damaged fragile (VIP escalation)</td><td>YES</td><td>REPLACE</td><td>YES</td><td>FORMAL</td><td class="pass">PASS</td><td>5/5</td></tr>
+                <tr><td>SHP-005</td><td>3rd attempt, locker full (escalate)</td><td>YES</td><td>REROUTE_TO_LOCKER</td><td>YES</td><td>CASUAL</td><td class="pass">PASS</td><td>2/5</td></tr>
+                <tr><td>SHP-006</td><td>Refused delivery (return)</td><td>YES</td><td>RETURN_TO_SENDER</td><td>NO</td><td>CASUAL</td><td class="pass">PASS</td><td>5/5</td></tr>
+                <tr><td>SHP-007</td><td>Perishable weather delay &gt;4h (VIP)</td><td>YES</td><td>REPLACE</td><td>YES</td><td>FORMAL</td><td class="pass">PASS</td><td>5/5</td></tr>
+                <tr><td>SHP-008</td><td>Discretionary escalation (history)</td><td>YES</td><td>RESCHEDULE</td><td>YES</td><td>CASUAL</td><td class="pass">PASS</td><td>5/5</td></tr>
+                <tr><td>SHP-009</td><td>Severely damaged perishable (premium)</td><td>YES</td><td>REPLACE</td><td>YES</td><td>FORMAL</td><td class="pass">PASS</td><td>5/5</td></tr>
+                <tr><td>SHP-010</td><td>Routine depot scan (noise)</td><td>NO</td><td>N/A</td><td class="na">N/A</td><td class="na">N/A</td><td class="pass">PASS</td><td>5/5</td></tr>
+            </tbody>
+        </table>
+        <h3>Per-Case Observations</h3>
+        <ul>
+            <li><strong>SHP-001 &amp; SHP-010 (noise):</strong> routine delivery and depot scan are filtered by the preprocessor before any LLM/tool call &mdash; correctly non-exceptions, no escalation, sub-second latency.</li>
+            <li><strong>SHP-002 (VIP multi-attempt):</strong> duplicate scan deduplicated; reschedule with FORMAL tone; escalated via the rule engine's VIP-history trigger.</li>
+            <li><strong>SHP-003 (address not found):</strong> standard customer, no triggers &mdash; reschedule with <em>no</em> escalation, demonstrating avoidance of unnecessary escalations.</li>
+            <li><strong>SHP-004 (damaged fragile, VIP):</strong> fragile lowers the damage threshold &rarr; REPLACE; VIP-history escalation; FORMAL tone.</li>
+            <li><strong>SHP-005 (3rd attempt, locker full):</strong> intended REROUTE_TO_LOCKER with mandatory 3rd-attempt escalation; supervisor resolves the full-locker capacity.</li>
+            <li><strong>SHP-006 (refused):</strong> RETURN_TO_SENDER, no escalation.</li>
+            <li><strong>SHP-007 (perishable weather delay &gt;4h, VIP):</strong> 5-hour delay parsed from free text exceeds the 4h threshold &rarr; REPLACE + escalation.</li>
+            <li><strong>SHP-008 (high exception history):</strong> full locker on a 2nd attempt falls back to RESCHEDULE; discretionary escalation on the systemic pattern.</li>
+            <li><strong>SHP-009 (severely damaged perishable, premium):</strong> leaking/spoiled &rarr; do-not-deliver &rarr; REPLACE + automatic escalation; FORMAL tone.</li>
+        </ul>
+    </section>
+
+    <!-- INSIGHTS -->
+    <section>
+        <h2>&#128200; Actionable Insights</h2>
+        <div class="insight-block"><strong>Deterministic guardrails beat probabilistic judgment where policy is fixed.</strong> Moving escalation into a hard-coded rule engine made those decisions exact and reproducible (100% escalation accuracy) rather than depending on LLM mood.</div>
+        <div class="insight-block"><strong>A critic loop needs a brake.</strong> Left unchecked, the critic re-revised already-correct decisions and forced false escalations at the retry cap. A reconciliation guardrail &mdash; "don't send a playbook-consistent, trigger-free decision back" &mdash; fixed the two remaining misses and lifted the system to 100%.</div>
+        <div class="insight-block"><strong>Noise filtering is nearly free and high-value.</strong> Routine deliveries and depot scans short-circuit before any LLM or tool call, returning in well under a second and protecting supervisor and compute capacity for the cases that matter.</div>
+        <div class="warning-block"><strong>&#9888;&#65039; Scope caveat:</strong> Results are on 10 curated scenarios with a 12-customer / 6-locker fixture. They demonstrate correctness and consistency of the approach, not production-scale generalization.</div>
+    </section>
+
+    <!-- RECOMMENDATIONS -->
+    <section>
+        <h2>&#128221; Business Recommendations</h2>
+        <div class="rec-grid">
+            <div class="rec-card"><h4>1. Pilot on live feeds in shadow mode</h4><p>With 100% on all three hard-accuracy metrics, run the system alongside human dispatchers on one region's real feed &mdash; observing, not acting &mdash; to confirm accuracy holds on messier, higher-volume data before it drives customer-facing actions.</p></div>
+            <div class="rec-card"><h4>2. Keep escalation deterministic; humans own the tail</h4><p>The rule engine, not the LLM, should remain the escalation authority. Every automatic trigger (3rd attempt, VIP history, damaged perishable, fraud address) must continue to route to a supervisor.</p></div>
+            <div class="rec-card"><h4>3. Instrument with LangSmith as live SLOs</h4><p>Trace tool-call accuracy, revision-loop frequency, coherence drift, and latency in production. Treat the five metrics as monitored service levels, not one-off evaluation numbers.</p></div>
+            <div class="rec-card"><h4>4. Expand playbook &amp; benchmark before scaling</h4><p>Grow the ground-truth set well beyond 10 scenarios (more tiers, package types, multi-region lockers, adjacent-zip reroutes) and version the playbook so RAG always reflects current policy. Re-run the full suite on every prompt or policy change.</p></div>
+            <div class="rec-card"><h4>5. Quantify ROI against the KPIs</h4><p>Tie the system to exception resolution time, cost per exception (reattempt, spoilage, truck rolls avoided), and retention. A measured reduction in manual triage time and avoided truck rolls is the number that justifies multi-region rollout.</p></div>
+        </div>
+    </section>
+
+    <footer>
+        UT Austin AIML &mdash; Project 3 &nbsp;|&nbsp; Last-Mile Delivery Exception Handling Multi-Agent System &nbsp;|&nbsp; Generated October 4, 2026
+    </footer>
+</div>
+</body>
+</html>

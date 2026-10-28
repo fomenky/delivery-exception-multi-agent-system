@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+.venv*/
+venv/
+env/
+
+# Secrets & config (NEVER commit real keys)
+.env
+config.json
+*.key
+
+# Local vector stores / caches / evaluation artifacts (rebuildable)
+chroma_store/
+.chroma/
+.deepeval/
+.deepeval_telemetry.txt
+tuning_results/
+*.pkl
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

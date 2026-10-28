@@ -1,0 +1,8 @@
+# Language-bar classification (GitHub Linguist)
+# The full report under reports/ is a generated HTML export of the Jupyter
+# notebook; exclude it so the language bar reflects the actual Python/notebook
+# work plus the hand-written HTML summary.
+
+reports/*.html linguist-generated=true
+*.ipynb linguist-detectable=true
+index.html linguist-detectable=true
